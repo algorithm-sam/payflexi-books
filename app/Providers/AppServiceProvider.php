@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Interfaces\BookInterface;
+use App\Repository\BookRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $this->app->bind(BookInterface::class, BookRepository::class);
     }
 }
