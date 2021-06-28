@@ -1855,6 +1855,63 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      searchQuery: ""
+    };
+  },
+  methods: {
+    handleSearch: function handleSearch() {
+      _app__WEBPACK_IMPORTED_MODULE_0__.bus.$emit("tableSearch", this.searchQuery);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Home.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Home.vue?vue&type=script&lang=js& ***!
@@ -1866,6 +1923,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app */ "./resources/js/app.js");
 //
 //
 //
@@ -2074,31 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2145,7 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
       var sortedField = this.sortBy;
       this.sortBy = column; // console.log(a[column], b[column]);
 
-      this.books.sort(function (a, b) {
+      this.filteredSearch.sort(function (a, b) {
         if (sortedField == column) {
           return a[column] > b[column] ? 1 : -1;
         } else {
@@ -2153,51 +2187,22 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    search: function search() {
-      var _this2 = this;
-
-      console.log("now");
+    search: function search(query) {
       this.filteredSearch = this.books.filter(function (arr) {
         return Object.values(arr).some(function (val) {
-          return val ? val.toString().toLowerCase().includes(_this2.searchQuery) : false;
+          return val ? val.toString().toLowerCase().includes(query) : false;
         });
       });
-    },
-    debounce: function debounce(func) {
-      var _this3 = this;
-
-      var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
-      var timer;
-      return function () {
-        if (!timer) {
-          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
-
-          func.apply(_this3, args);
-        }
-
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          timer = undefined;
-        }, timeout);
-      };
-    },
-    handleSearch: function handleSearch() {
-      this.debounce(this.search, 500)();
     }
   },
   created: function created() {
-    console.log("Created Dude: ", this.books);
-    this.fetchBooks();
-  } // watch: {
-  //   sortBy: function (column) {
-  //     this.books = this.books.sort((a, b) => {
-  //       return a[column] > b[column] ? 1 : -1;
-  //     });
-  //   },
-  // },
+    var _this2 = this;
 
+    this.fetchBooks();
+    _app__WEBPACK_IMPORTED_MODULE_0__.bus.$on("tableSearch", function (query) {
+      _this2.search(query);
+    });
+  }
 });
 
 /***/ }),
@@ -2210,6 +2215,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "bus": () => (/* binding */ bus)
+/* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _Pages_Home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pages/Home */ "./resources/js/Pages/Home.vue");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -2233,7 +2241,8 @@ vue__WEBPACK_IMPORTED_MODULE_1__.default.filter('string', function (value) {
     return value;
   }
 }); // Vue.use(VueRouter);
-// Initialize Vue
+
+var bus = new vue__WEBPACK_IMPORTED_MODULE_1__.default(); // Initialize Vue
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1__.default({
   el: '#app',
@@ -2316,7 +2325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nth {\r\n  position: relative;\r\n  cursor: pointer;\n}\nth::after {\r\n  font-family: \"Material Icons\";\r\n  content: \"\\e152\";\r\n  width: 20px;\r\n  height: 20px;\r\n  position: absolute;\r\n  /* background: red; */\r\n  top: 30%;\r\n  right: 5%;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nth {\r\n  position: relative;\r\n  cursor: pointer;\n}\nth::after {\r\n  font-family: \"Material Icons\";\r\n  content: \"\\e152\";\r\n  width: 20px;\r\n  height: 20px;\r\n  position: absolute;\r\n  top: 30%;\r\n  right: 5%;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20198,6 +20207,45 @@ component.options.__file = "resources/js/Components/Loader.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Components/SearchBar.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/Components/SearchBar.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchBar.vue?vue&type=template&id=2fcfe3e0& */ "./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0&");
+/* harmony import */ var _SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchBar.vue?vue&type=script&lang=js& */ "./resources/js/Components/SearchBar.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__.render,
+  _SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/SearchBar.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Home.vue":
 /*!*************************************!*\
   !*** ./resources/js/Pages/Home.vue ***!
@@ -20252,6 +20300,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Loader.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/Loader.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/SearchBar.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/Components/SearchBar.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchBar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -20314,6 +20378,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_2fcfe3e0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SearchBar.vue?vue&type=template&id=2fcfe3e0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0&");
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Home.vue?vue&type=template&id=6a63e488&":
 /*!********************************************************************!*\
   !*** ./resources/js/Pages/Home.vue?vue&type=template&id=6a63e488& ***!
@@ -20367,6 +20448,77 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Components/SearchBar.vue?vue&type=template&id=2fcfe3e0& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "bg-white shadow p-4 flex mb-4" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.searchQuery,
+          expression: "searchQuery"
+        }
+      ],
+      staticClass: "w-full rounded p-2 focus:outline-none focus:text-gray-500",
+      attrs: { type: "text", placeholder: "Try 'Author Name'" },
+      domProps: { value: _vm.searchQuery },
+      on: {
+        keyup: _vm.handleSearch,
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.searchQuery = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass:
+          "\n      bg-gray-500\n      hover:bg-gray-300\n      rounded\n      hover:text-black\n      text-white\n      p-2\n      px-4\n    ",
+        on: { click: _vm.handleSearch }
+      },
+      [_c("p", { staticClass: "font-semibold text-xs" }, [_vm._v("Search")])]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "w-auto flex justify-end items-center text-gray-500 p-2" },
+      [_c("i", { staticClass: "material-icons text-3xl" }, [_vm._v("search")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Home.vue?vue&type=template&id=6a63e488&":
 /*!***********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Home.vue?vue&type=template&id=6a63e488& ***!
@@ -20387,367 +20539,342 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("main", { staticClass: "main-content mt-12" }, [
-      _c("div", { staticClass: "flex flex-col container mx-auto" }, [
-        _c("div", { staticClass: "bg-white shadow p-4 flex mb-4" }, [
-          _vm._m(1),
+      _c(
+        "div",
+        { staticClass: "flex flex-col container mx-auto" },
+        [
+          _c("search-bar", { on: { onSearch: _vm.search } }),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.searchQuery,
-                expression: "searchQuery"
-              }
-            ],
-            staticClass:
-              "w-full rounded p-2 focus:outline-none focus:text-gray-500",
-            attrs: { type: "text", placeholder: "Try 'Author Name'" },
-            domProps: { value: _vm.searchQuery },
-            on: {
-              keyup: _vm.handleSearch,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.searchQuery = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "\n            bg-gray-500\n            hover:bg-gray-300\n            rounded\n            hover:text-black\n            text-white\n            p-2\n            px-4\n          ",
-              on: { click: _vm.handleSearch }
-            },
-            [
-              _c("p", { staticClass: "font-semibold text-xs" }, [
-                _vm._v("Search")
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }, [
           _c(
             "div",
-            {
-              staticClass:
-                "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
-            },
+            { staticClass: "-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" },
             [
               _c(
                 "div",
                 {
                   staticClass:
-                    "\n              shadow\n              overflow-hidden\n              border-b border-gray-200\n              sm:rounded-lg\n            "
+                    "py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8"
                 },
                 [
                   _c(
-                    "table",
-                    { staticClass: "min-w-full divide-y divide-gray-200" },
+                    "div",
+                    {
+                      staticClass:
+                        "\n              shadow\n              overflow-hidden\n              border-b border-gray-200\n              sm:rounded-lg\n            "
+                    },
                     [
-                      _c("thead", { staticClass: "bg-gray-100" }, [
-                        _c("tr", [
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("id")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    ID\n                  "
+                      _c(
+                        "table",
+                        { staticClass: "min-w-full divide-y divide-gray-200" },
+                        [
+                          _c("thead", { staticClass: "bg-gray-100" }, [
+                            _c("tr", [
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("id")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    ID\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("name")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Name\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("isbn")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    ISBN\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("authors")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Author\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("country")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Country\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("number_of_pages")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Pages\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("publisher")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Publisher\n                  "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "th",
+                                {
+                                  staticClass:
+                                    "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
+                                  attrs: { scope: "col" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sort("release_date")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    Release Date\n                  "
+                                  )
+                                ]
                               )
-                            ]
-                          ),
+                            ])
+                          ]),
                           _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("name")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Name\n                  "
+                          _vm.isLoading == false
+                            ? _c(
+                                "tbody",
+                                {
+                                  staticClass:
+                                    "bg-white divide-y divide-gray-200"
+                                },
+                                _vm._l(_vm.filteredSearch, function(
+                                  book,
+                                  index
+                                ) {
+                                  return _c("tr", { key: index }, [
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(index + 1) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.name) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.isbn) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(
+                                              _vm._f("string")(book.authors)
+                                            ) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.country) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.number_of_pages) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.publisher) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      {
+                                        staticClass:
+                                          "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                    " +
+                                            _vm._s(book.release_date) +
+                                            "\n                  "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                0
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("isbn")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    ISBN\n                  "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("authors")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Author\n                  "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("country")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Country\n                  "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("number_of_pages")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Pages\n                  "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("publisher")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Publisher\n                  "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "th",
-                            {
-                              staticClass:
-                                "\n                      px-6\n                      py-3\n                      text-left text-xs\n                      font-medium\n                      text-gray-500\n                      uppercase\n                      tracking-wider\n                    ",
-                              attrs: { scope: "col" },
-                              on: {
-                                click: function($event) {
-                                  return _vm.sort("release_date")
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Release Date\n                  "
-                              )
-                            ]
-                          )
-                        ])
-                      ]),
+                            : _vm._e()
+                        ]
+                      ),
                       _vm._v(" "),
-                      _vm.isLoading == false
-                        ? _c(
-                            "tbody",
-                            {
-                              staticClass: "bg-white divide-y divide-gray-200"
-                            },
-                            _vm._l(_vm.filteredSearch, function(book, index) {
-                              return _c("tr", { key: index }, [
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(index + 1) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.name) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.isbn) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(_vm._f("string")(book.authors)) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.country) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.number_of_pages) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.publisher) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticClass:
-                                      "px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(book.release_date) +
-                                        "\n                  "
-                                    )
-                                  ]
-                                )
-                              ])
-                            }),
-                            0
-                          )
-                        : _vm._e()
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.isLoading ? _c("loader") : _vm._e()
-                ],
-                1
+                      _vm.isLoading ? _c("loader") : _vm._e()
+                    ],
+                    1
+                  )
+                ]
               )
             ]
           )
-        ])
-      ])
+        ],
+        1
+      )
     ])
   ])
 }
@@ -20764,16 +20891,6 @@ var staticRenderFns = [
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      { staticClass: "w-auto flex justify-end items-center text-gray-500 p-2" },
-      [_c("i", { staticClass: "material-icons text-3xl" }, [_vm._v("search")])]
-    )
   }
 ]
 render._withStripped = true
@@ -32947,6 +33064,7 @@ Vue.compile = compileToFunctions;
 
 var map = {
 	"./Components/Loader.vue": "./resources/js/Components/Loader.vue",
+	"./Components/SearchBar.vue": "./resources/js/Components/SearchBar.vue",
 	"./Pages/Home.vue": "./resources/js/Pages/Home.vue"
 };
 
