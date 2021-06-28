@@ -18,7 +18,7 @@ Vue.filter('string', function (value) {
     }
 })
 // Vue.use(VueRouter);
-
+export const bus = new Vue();
 // Initialize Vue
 const app = new Vue({
     el: '#app',
