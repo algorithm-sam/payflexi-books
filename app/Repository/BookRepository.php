@@ -14,11 +14,7 @@ class BookRepository implements BookInterface
     {
         $this->_bookService = $bookService;
     }
-    public function getBooks()
-    {
-        $response = $this->_bookService->getBooks();
-        return $response;
-    }
+
 
     public function getBook($book_id)
     {

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function (Request $request) {
-    return response()->json(['message' => 'Welcome to Books API'], 201);
+    return response()->json(['message' => 'Welcome to Books API'], 200);
 });
 Route::group([
     'namespace' => 'API',
